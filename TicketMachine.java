@@ -17,11 +17,13 @@ public class TicketMachine
     private int balance;
     // The total amount of money collected by this machine.
     private int total;
+    //Descuentos
+    private boolean descuentos;
 
     /**
      * Create a machine that issues tickets of the given price.
      */
-    public TicketMachine(int cost)
+    public TicketMachine(int cost, boolean descuento)
     {
         price = cost;
         balance = 0;
@@ -65,28 +67,22 @@ public class TicketMachine
      * reduce the current balance by the ticket price. Print
      * an error message if more money is required.
      */
-    public void printTicket()
-    {
-        if(balance >= price) {
-            // Simulate the printing of a ticket.
-            System.out.println("##################");
-            System.out.println("# The BlueJ Line");
-            System.out.println("# Ticket");
-            System.out.println("# " + price + " cents.");
-            System.out.println("##################");
-            System.out.println();
-
-            // Update the total collected with the price.
-            total = total + price;
-            // Reduce the balance by the prince.
-            balance = balance - price;
-        }
-        else {
-            System.out.println("You must insert at least: " +
-                               (price - balance) + " more cents.");
-                    
-        }
-    }
+      public void prinTicketWithDiscount()
+       {   if(descuentos == true) {
+             // Simulate the printing of a ticket.
+              price = (price*10/100);
+              System.out.println("##################");
+              System.out.println("# The BlueJ Line");
+              System.out.println("# Ticket");
+              System.out.println("# " + price + " cents.");
+              System.out.println("##################");
+              System.out.println();
+              // Update the total collected with the price.
+              total = total + price;
+              // Reduce the balance by the prince.
+              balance = balance - price;  
+            }
+ }
 
     /**
      * Return the money in the balance.
@@ -104,11 +100,16 @@ public class TicketMachine
      * sacar todas las monedas que estan en la maquina
      */
     public int emptyMachine ()
+   
     { 
-      int dinero;
-      dinero = total;
-      total = 0;
-      return dinero; 
+        int recaudacion = -1;
+          if (balance == 0){
+         recaudacion = total;
+        total= 0;
+      }
+      return recaudacion;
 
+      }
+                  
     }
-}
+
